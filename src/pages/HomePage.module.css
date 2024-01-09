@@ -1,0 +1,7 @@
+ .body {
+    background-image: url('../Assets/mvp');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    margin: 0; 
+}

@@ -1,0 +1,39 @@
+
+  .appContainer {
+    background-color: #ce2829;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  
+  .mainContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-top:24rem;
+  }
+  
+  .congratulations {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+  }
+  
+  h1, p {
+    font-family: 'Barlow Condensed', sans-serif;
+    
+    
+  }
+  
+  h1 {
+    font-size: 8em;
+    font-weight: 50;
+    font-stretch: condensed;
+  }
+  
+  p {
+    font-size: 1.5em;
+  }
