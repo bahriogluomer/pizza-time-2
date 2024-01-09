@@ -7,30 +7,34 @@
   
   
   .mainContent {
+    background-color: #ce2829;
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: #fff;
-    margin-top:24rem;
+    margin-top:16rem;
   }
   
   .congratulations {
+    background-color: #ce2829;
     display: flex; 
     flex-direction: column; 
     align-items: center;
   }
   
   h1, p {
+    background-color: #ce2829;
     font-family: 'Barlow Condensed', sans-serif;
     
     
   }
   
   h1 {
+    
     font-size: 8em;
-    font-weight: 50;
+    font-weight: 200;
     font-stretch: condensed;
   }
   

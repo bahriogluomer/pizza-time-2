@@ -6,8 +6,9 @@ const StyledBody = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
-
-    
+background-color: #ce2829;
+min-height: 100vh; /* Set minimum height to 100% of the viewport height */
+margin: 0; /* Remove default margin */
 `;
 
 export default function SuccessPage () {
@@ -23,6 +24,5 @@ export default function SuccessPage () {
       </main>
     </div>
     </StyledBody>
-        
-      );
+    );
     }
