@@ -61,10 +61,22 @@ export default function OrderForm () {
     if(formData.orderQuantity>1) {
       setFormData({ ...formData, orderQuantity: formData.orderQuantity - 1 })
     }
-    
   };
 
- 
+  const handleCheckboxChange = (event, topping) => {
+    const isChecked = event.target.checked;
+    setFormData((prevData) => ({
+      ...prevData,
+      selectedToppings: isChecked
+        ? [...prevData.selectedToppings, topping]
+        : prevData.selectedToppings.filter((item) => item !== topping),
+    }));
+  };
+
+  const secimler = formData.selectedToppings.length*5;
+  const toplam = (formData.totalPrice())*formData.orderQuantity;
+
+  console.log(formData);
   //const totalPrice = (85.50 + selectedToppings.length * 5) * quantity;
 
   return (
@@ -95,7 +107,6 @@ export default function OrderForm () {
   
     <div>
     <select>
-      <option value="">Hamur Seç</option>
       <option value="thin">İnce</option>
       <option value="medium">Orta</option>
       <option value="thick">Kalın</option>
@@ -112,98 +123,98 @@ export default function OrderForm () {
   <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping1" value="pepperoni" />
+        <input type="checkbox" id="topping1" value="pepperoni" onChange={(e) => handleCheckboxChange(e, "pepperoni")} />
         <label htmlFor="topping1">Pepperoni</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping2" value="tavuk" />
+        <input type="checkbox" id="topping2" value="tavuk" onChange={(e) => handleCheckboxChange(e, "tavuk")} />
         <label htmlFor="topping2">Tavuk</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping3" value="misir" />
+        <input type="checkbox" id="topping3" value="misir" onChange={(e) => handleCheckboxChange(e, "misir")}/>
         <label htmlFor="topping3">Mısır</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping4" value="sarimsak" />
+        <input type="checkbox" id="topping4" value="sarimsak" onChange={(e) => handleCheckboxChange(e, "sarimsak")}/>
         <label htmlFor="topping4">Sarımsak</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping5" value="ananas" />
+        <input type="checkbox" id="topping5" value="ananas" onChange={(e) => handleCheckboxChange(e, "ananas")} />
         <label htmlFor="topping5">Ananas</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping6" value="sosis" />
+        <input type="checkbox" id="topping6" value="sosis" onChange={(e) => handleCheckboxChange(e, "sosis")} />
         <label htmlFor="topping6">Sosis</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping7" value="sogan" />
+        <input type="checkbox" id="topping7" value="sogan" onChange={(e) => handleCheckboxChange(e, "sogan")}/>
         <label htmlFor="topping7">Soğan</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping8" value="sucuk" />
+        <input type="checkbox" id="topping8" value="sucuk" onChange={(e) => handleCheckboxChange(e, "sucuk")}/>
         <label htmlFor="topping8">Sucuk</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping9" value="biber" />
+        <input type="checkbox" id="topping9" value="biber" onChange={(e) => handleCheckboxChange(e, "biber")} />
         <label htmlFor="topping9">Biber</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping10" value="kabak" />
+        <input type="checkbox" id="topping10" value="kabak" onChange={(e) => handleCheckboxChange(e, "kabak")}/>
         <label htmlFor="topping10">Kabak</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping11" value="kjambon" />
+        <input type="checkbox" id="topping11" value="kjambon" onChange={(e) => handleCheckboxChange(e, "kjambon")} />
         <label htmlFor="topping11">Kanada Jambonu</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping12" value="domates" />
+        <input type="checkbox" id="topping12" value="domates" onChange={(e) => handleCheckboxChange(e, "domates")}/>
         <label htmlFor="topping12">Domates</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping13" value="jalapeno" />
+        <input type="checkbox" id="topping13" value="jalapeno" onChange={(e) => handleCheckboxChange(e, "jalapeno")}/>
         <label htmlFor="topping13">Jalepeno</label>
       </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
       <span>
-        <input type="checkbox" id="topping14" value="salam" />
+        <input type="checkbox" id="topping14" value="salam" onChange={(e) => handleCheckboxChange(e, "salam")}/>
         <label htmlFor="topping14">Salam</label>
       </span>
     </div>
@@ -235,8 +246,8 @@ export default function OrderForm () {
 
 <span>
   <div>
-    <p>Seçimler: {formData.selectedToppings*5} </p> {/*should display (selectedToppings.length*5) */}
-    <p>Toplam:{(formData.totalPrice())*formData.orderQuantity}</p>  {/*should display totalPrice */}
+    <p>Seçimler: {secimler} </p> {/*should display (selectedToppings.length*5) */}
+    <p>Toplam:{toplam + secimler}</p>  {/*should display totalPrice */}
     <StyledSubmitButton type="submit">SİPARİŞ VER</StyledSubmitButton>
   </div>
   </span>
