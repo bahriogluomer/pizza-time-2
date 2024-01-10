@@ -20,7 +20,7 @@ height: 100%;
 const StyledButton = styled.button`
 display: flex;
 height: 56px;
-padding: 0 50.159px 0 49.641px;
+padding: 0 50px 0 50px;
 justify-content: center;
 align-items: center;
 border-radius: 50px;

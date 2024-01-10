@@ -1,146 +1,250 @@
 
 import { useHistory } from 'react-router-dom';
+import { useState,useEffect } from 'react';
+import styled from 'styled-components';
+
+const StyledSubmitButton = styled.button`
+display: flex;
+height: 3rem;
+width:16rem;
+padding: 0 50px 0 50px;
+justify-content: center;
+align-items: center;
+border-radius: 8px;
+background: #FDC913;
+font-weight: bold;
+font-size: 1.2rem;
+border: none;
+margin-top: 1.5rem;
+font-family: 'Barlow Condensed', sans-serif;
+transition: transform 0.3s ease;
+&:hover {
+  transform: scale(1.05);
+}
+`
+
+const initialForm = {
+  name: "",
+  pizzaSize: "",
+  crustChoice:"",
+  selectedToppings: [],
+  orderNote: "",
+  orderQuantity: 1,
+  totalPrice: () => (85.5 + initialForm.orderQuantity * initialForm.selectedToppings.length * 5),
+};
+
+const initialErrors = {
+  name: false,    // if name.length<=4 true
+  pizzaSize: false,   //if not selected true
+  crustChoice: false, //if not selected true
+  selectedToppings: false, // if selectedToppings.length>10 true
+}
+
+
 
 export default function OrderForm () {
+  const [formData, setFormData] = useState(initialForm);
+  const [errors, setErrors] = useState(initialErrors);
+  const [isValid, setIsValid] = useState(false);
   const history = useHistory();
 
-  
   const handleSubmit = (event) => {
     event.preventDefault();
     history.push('/success');
+  };
+
+  const handleIncrement = () => {
+    setFormData({ ...formData, orderQuantity: formData.orderQuantity + 1 })
+  };
+
+  const handleDecrement = () => {
+    if(formData.orderQuantity>1) {
+      setFormData({ ...formData, orderQuantity: formData.orderQuantity - 1 })
+    }
+    
   };
 
  
   //const totalPrice = (85.50 + selectedToppings.length * 5) * quantity;
 
   return (
-    <div style={{ width: '40rem' }}>
-  <label>Boyut Seç:</label>
+  <form onSubmit={handleSubmit} style={{ width: '40rem', fontFamily: "'Barlow Condensed', sans-serif", fontWeight:'bold', fontSize:'1.2rem', color:'black' }}>
+    <div style={{display:'flex', justifyContent:"space-between"}}>
+    <label>Boyut Seç:</label>
+    <label>Hamur Seç:</label>
+    </div>
+    <div style={{display:'flex', justifyContent:"space-between"}}>
+    
   <div style={{display:'flex', flexDirection:'column',flexBasis: 'flex-start'}}>
+    <span>
     <input type="radio" name="size" value="small" />
     <label>Küçük</label>
-
-    <input type="radio" name="size" value="medium" />
+    </span>
+    
+    <span>
+      <input type="radio" name="size" value="medium" />
     <label>Orta</label>
-
+    </span>
+    
+    <span>
     <input type="radio" name="size" value="large" />
     <label>Büyük</label>
+    </span>
   </div>
 
-  <label>Hamur Seç:</label>
-  <div>
+  
+    <div>
     <select>
       <option value="">Hamur Seç</option>
       <option value="thin">İnce</option>
       <option value="medium">Orta</option>
       <option value="thick">Kalın</option>
     </select>
+    </div>
   </div>
-
-  <div>
-  <label>Ek Malzemeler:</label>
-  <label>En Fazla 10 malzeme seçebilirsiniz. 5₺</label>
-  <div style={{ display: 'flex', margin: '5rem', height: '10rem'}}>
-    <div style={{ flex: 1, marginRight: '20px'}}>
-    <span>
-    <input type="checkbox" id="topping1" value="topping1"/>
-    <label htmlFor="topping1">Pepperoni</label>
-    </span>
-    
-    <span>
-    <input type="checkbox" id="topping2" value="topping2"/>
-    <label htmlFor="topping2">Tavuk</label>
-    </span>
-    
-    <span>
-    <input type="checkbox" id="topping3" value="topping3"/>
-    <label htmlFor="topping3">Mısır</label>
-    </span>
-    
-    <span>
-    <input type="checkbox" id="topping4" value="topping4"/>
-    <label htmlFor="topping4">Sarımsak</label>
-    </span>
-    
-    <span>
-    <input type="checkbox" id="topping5" value="topping5"/>
-    <label htmlFor="topping5">Ananas</label>
-    </span>
-    
-  </div>
-
-  <div style={{  flex: 1, marginRight: '20px' }}>
-    <span>
-    <input type="checkbox" id="topping6" value="topping6"/>
-    <label htmlFor="topping6">Sosis</label>
-    </span>
-    
-    <span>
-    <input type="checkbox" id="topping7" value="topping7"/>
-    <label htmlFor="topping7">Soğan</label>
-    </span>
-    
-    <span>
-    <input type="checkbox" id="topping8" value="topping8"/>
-    <label htmlFor="topping7">Sucuk</label>
-    </span>
-    
-    <span>
-    <input type="checkbox" id="topping9" value="topping9"/>
-    <label htmlFor="topping7">Biber</label>
-    </span>
-    
-    <span>
-    <input type="checkbox" id="topping10" value="topping10"/>
-    <label htmlFor="topping7">Kabak</label>
-    </span>
-    
-</div>
-<div style={{ flex: 1 }}>
-    <span>
-    <input type="checkbox" id="topping11" value="topping11"/>
-    <label htmlFor="topping11">Kanada Jambonu</label>
-    </span>
-    
-    <span>
-    <input type="checkbox" id="topping12" value="topping12"/>
-    <label htmlFor="topping12">Domates</label>
-    </span>
-    
-    <span>
-    <input type="checkbox" id="topping13" value="topping13"/>
-    <label htmlFor="topping13">Jalepeno</label>
-    </span>
-    
-    <span>
-    <input type="checkbox" id="topping14" value="topping14"/>
-    <label htmlFor="topping14">Sucuk</label>
-    </span>   
-</div>
-</div>
-
-
   
 
-  <label>Sipariş Notu:</label>
-  <textarea defaultValue="Siparişine eklemek istediğin bir not var mı?" />
+  {/**/}
 
-  <label>İsminiz:</label>
-  <input type="text" />
+  <div style={{marginTop:'2rem', marginBottom:'2rem'}}>
+  <label>Ek Malzemeler:</label>
+  <label>En Fazla 10 malzeme seçebilirsiniz. 5₺</label>
+  <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping1" value="pepperoni" />
+        <label htmlFor="topping1">Pepperoni</label>
+      </span>
+    </div>
 
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping2" value="tavuk" />
+        <label htmlFor="topping2">Tavuk</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping3" value="misir" />
+        <label htmlFor="topping3">Mısır</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping4" value="sarimsak" />
+        <label htmlFor="topping4">Sarımsak</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping5" value="ananas" />
+        <label htmlFor="topping5">Ananas</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping6" value="sosis" />
+        <label htmlFor="topping6">Sosis</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping7" value="sogan" />
+        <label htmlFor="topping7">Soğan</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping8" value="sucuk" />
+        <label htmlFor="topping8">Sucuk</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping9" value="biber" />
+        <label htmlFor="topping9">Biber</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping10" value="kabak" />
+        <label htmlFor="topping10">Kabak</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping11" value="kjambon" />
+        <label htmlFor="topping11">Kanada Jambonu</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping12" value="domates" />
+        <label htmlFor="topping12">Domates</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping13" value="jalapeno" />
+        <label htmlFor="topping13">Jalepeno</label>
+      </span>
+    </div>
+
+    <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
+      <span>
+        <input type="checkbox" id="topping14" value="salam" />
+        <label htmlFor="topping14">Salam</label>
+      </span>
+    </div>
+  </div>
+</div>
+
+{/**/}
+
+<label>Sipariş Notu:</label>
+<textarea placeholder="Siparişinize eklemek istediğiniz bir not var mı?" />
+
+{/**/}
+
+<label>İsminiz:</label>
+<input type="text" value={name}/>
+
+{/**/}
+<div>
+  <span>
   <label>Adet:</label>
   <div style={{ display: 'flex', alignItems: 'center' }}>
-    <button type="button">-</button>
-    <span>1</span>
-    <button type="button">+</button>
+    <button type="button" onClick={handleDecrement}>-</button>
+    <span>{formData.orderQuantity}</span> {/*should be increasing or decreasing orderQuantity*/}
+    <button type="button" onClick={handleIncrement}>+</button>
   </div>
+</span>
 
+{/**/}
+
+<span>
   <div>
-    <p>Seçimler: 0 Toplam 0.00</p>
+    <p>Seçimler: {formData.selectedToppings*5} </p> {/*should display (selectedToppings.length*5) */}
+    <p>Toplam:{(formData.totalPrice())*formData.orderQuantity}</p>  {/*should display totalPrice */}
+    <StyledSubmitButton type="submit">SİPARİŞ VER</StyledSubmitButton>
+  </div>
+  </span>
   </div>
 
-  <button type="submit" onClick={handleSubmit}>SİPARİŞ VER</button>
-</div>
-</div>
+{/**/}
+
+  
+</form>
 );
 }
