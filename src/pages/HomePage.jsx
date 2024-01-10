@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import classes from"./HomePage.module.css";
 import styled from 'styled-components';
 
-const StyledBody = styled.div`
+const StyledHero = styled.div`
 background: url('../Assets/mvp-banner.png');
 background-size: cover;  /* Ensure the background image covers the entire container */
 background-position: center; /* Center the background image */
@@ -28,6 +28,7 @@ background: #FDC913;
 font-weight: bold;
 font-size: 2rem;
 border: none;
+margin-top: 1.5rem;
 font-family: 'Barlow Condensed', sans-serif;
 transition: transform 0.3s ease;
 &:hover {
@@ -42,14 +43,16 @@ export default function HomePage () {
     history.push('/order');
   };
   return (
-    <StyledBody>
-      <Header/>
-      <div className={classes.mainContainer}>
-        <h1>KOD ACIKTIRIR</h1>
-        <h1>PİZZA, DOYURUR</h1>
-        <StyledButton onClick={handleButtonClick}>ACIKTIM</StyledButton>
-      </div>
-    </StyledBody>
+    <>
+    <StyledHero>
+    <Header/>
+    <div className={classes.mainContainer}>
+      <h1>KOD ACIKTIRIR</h1>
+      <h1>PİZZA, DOYURUR</h1>
+      <StyledButton onClick={handleButtonClick}>ACIKTIM</StyledButton>
+    </div>
+  </StyledHero>
+  </>
   );
 }
 

@@ -1,0 +1,14 @@
+.mainContainer {
+    display: inline-block;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;              
+}
+
+.mainContainer h1 {
+    background-color: transparent;
+    color: black;
+    font-size: 1.5rem;
+    margin: 0;
+}

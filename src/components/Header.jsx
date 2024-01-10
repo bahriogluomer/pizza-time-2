@@ -5,7 +5,7 @@ background-color: #ce2829;
 display: flex;
 flex-direction: column;
 align-items: center;
-justify-content: flex-end;
+justify-content: center;
 margin-top: 0rem;
 font-size: 50em;
 height: 10rem;
