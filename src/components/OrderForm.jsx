@@ -16,16 +16,19 @@ font-weight: bold;
 font-size: 1.2rem;
 border: none;
 margin-top: 1.5rem;
-font-family: 'Barlow Condensed', sans-serif;
+font-family: 'Barlow', sans-serif;
 transition: transform 0.3s ease;
 &:hover {
   transform: scale(1.05);
 }
 `
 //TODO
-//ekmalzemeler arrayi olustur maple 
-//inline style'lar yok edilecek
-//
+//ekmalzemeler arrayi olusturulup maplenecek
+//handleChange kalan form elementleri icin yazilacak, secim ve girdilerin formData'yi guncellemeleri saglanacak 
+//inline style'lar yok edilecek, order formun cssi duzeltilecek (spesifikasyonda oldugu gibi)
+//Form ve yukarıdaki yazılarda font-family yanlis yalin barlow olacak
+//onSubmit fonksiyonu useEffect kullanarak axios araciligiyla formData post edilecek, post data console.log ile gosterilecek
+//cypress testleri yazilacak
 
 const initialForm = {
   name: "",
@@ -34,7 +37,7 @@ const initialForm = {
   selectedToppings: [],
   orderNote: "",
   orderQuantity: 1,
-  totalPrice: () => (85.5 + initialForm.orderQuantity * initialForm.selectedToppings.length * 5),
+  totalPrice: () => (85.5 + initialForm.orderQuantity * initialForm.selectedToppings.length * 5), // totalPrice bir fonksiyon degil int olmali
 };
 
 const initialErrors = {
@@ -86,7 +89,7 @@ export default function OrderForm () {
 
   return (
   <form onSubmit={handleSubmit} style={{ width: '40rem', fontFamily: "'Barlow Condensed', sans-serif", fontWeight:'bold', fontSize:'1.2rem', color:'black' }}>
-    <div style={{display:'flex', justifyContent:"space-between"}}>
+    <div style={{display:'flex', justifyContent:"space-between"}}> {/*inline stylelari nasil css dosyasina aktarirsin dusun!!!*/}
     <label>Boyut Seç:</label>
     <label>Hamur Seç:</label>
     </div>
