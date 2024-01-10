@@ -22,6 +22,10 @@ transition: transform 0.3s ease;
   transform: scale(1.05);
 }
 `
+//TODO
+//ekmalzemeler arrayi olustur maple 
+//inline style'lar yok edilecek
+//
 
 const initialForm = {
   name: "",
@@ -51,6 +55,7 @@ export default function OrderForm () {
   const handleSubmit = (event) => {
     event.preventDefault();
     history.push('/success');
+    console.log(formData);
   };
 
   const handleIncrement = () => {
@@ -74,9 +79,9 @@ export default function OrderForm () {
   };
 
   const secimler = formData.selectedToppings.length*5;
-  const toplam = (formData.totalPrice())*formData.orderQuantity;
+  const toplam = (formData.totalPrice()+secimler)*formData.orderQuantity;
 
-  console.log(formData);
+  
   //const totalPrice = (85.50 + selectedToppings.length * 5) * quantity;
 
   return (
@@ -121,102 +126,75 @@ export default function OrderForm () {
   <label>Ek Malzemeler:</label>
   <label>En Fazla 10 malzeme seçebilirsiniz. 5₺</label>
   <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+    
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping1" value="pepperoni" onChange={(e) => handleCheckboxChange(e, "pepperoni")} />
         <label htmlFor="topping1">Pepperoni</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping2" value="tavuk" onChange={(e) => handleCheckboxChange(e, "tavuk")} />
         <label htmlFor="topping2">Tavuk</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping3" value="misir" onChange={(e) => handleCheckboxChange(e, "misir")}/>
         <label htmlFor="topping3">Mısır</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping4" value="sarimsak" onChange={(e) => handleCheckboxChange(e, "sarimsak")}/>
         <label htmlFor="topping4">Sarımsak</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping5" value="ananas" onChange={(e) => handleCheckboxChange(e, "ananas")} />
         <label htmlFor="topping5">Ananas</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping6" value="sosis" onChange={(e) => handleCheckboxChange(e, "sosis")} />
         <label htmlFor="topping6">Sosis</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping7" value="sogan" onChange={(e) => handleCheckboxChange(e, "sogan")}/>
         <label htmlFor="topping7">Soğan</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
-        <input type="checkbox" id="topping8" value="sucuk" onChange={(e) => handleCheckboxChange(e, "sucuk")}/>
-        <label htmlFor="topping8">Sucuk</label>
-      </span>
+      <input type="checkbox" id="topping8" value="sucuk" onChange={(e) => handleCheckboxChange(e, "sucuk")}/>
+      <label htmlFor="topping8">Sucuk</label>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping9" value="biber" onChange={(e) => handleCheckboxChange(e, "biber")} />
         <label htmlFor="topping9">Biber</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping10" value="kabak" onChange={(e) => handleCheckboxChange(e, "kabak")}/>
         <label htmlFor="topping10">Kabak</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping11" value="kjambon" onChange={(e) => handleCheckboxChange(e, "kjambon")} />
         <label htmlFor="topping11">Kanada Jambonu</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping12" value="domates" onChange={(e) => handleCheckboxChange(e, "domates")}/>
         <label htmlFor="topping12">Domates</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping13" value="jalapeno" onChange={(e) => handleCheckboxChange(e, "jalapeno")}/>
         <label htmlFor="topping13">Jalepeno</label>
-      </span>
     </div>
 
     <div style={{ flex: '0 0 30%', marginBottom: '10px' }}>
-      <span>
         <input type="checkbox" id="topping14" value="salam" onChange={(e) => handleCheckboxChange(e, "salam")}/>
         <label htmlFor="topping14">Salam</label>
-      </span>
     </div>
   </div>
 </div>
@@ -224,12 +202,12 @@ export default function OrderForm () {
 {/**/}
 
 <label>Sipariş Notu:</label>
-<textarea placeholder="Siparişinize eklemek istediğiniz bir not var mı?" />
+<textarea placeholder="Siparişinize eklemek istediğiniz bir not var mı?" /> {/*handlechange fonksiyonu yaz*/}
 
 {/**/}
 
 <label>İsminiz:</label>
-<input type="text" value={name}/>
+<input type="text" /> {/*handlechange fonksiyonu yaz*/}
 
 {/**/}
 <div>
@@ -247,7 +225,7 @@ export default function OrderForm () {
 <span>
   <div>
     <p>Seçimler: {secimler} </p> {/*should display (selectedToppings.length*5) */}
-    <p>Toplam:{toplam + secimler}</p>  {/*should display totalPrice */}
+    <p>Toplam:{toplam}</p>  {/*should display totalPrice */}
     <StyledSubmitButton type="submit">SİPARİŞ VER</StyledSubmitButton>
   </div>
   </span>
