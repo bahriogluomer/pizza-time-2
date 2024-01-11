@@ -20,6 +20,10 @@ font-family: 'Barlow', sans-serif;
     width: 40rem;
 }
 
+.form label {
+    font-size: 1.5rem;
+}
+
 .topContainer {
     display:flex;
     justify-content: space-between;
@@ -37,6 +41,12 @@ font-family: 'Barlow', sans-serif;
     flex-basis: flex-start;
 }
 
+.radioColumn label {
+    font-size: 1.2rem;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
 .dropDown {
     width: 3rem;
 }
@@ -44,13 +54,24 @@ font-family: 'Barlow', sans-serif;
 .checkboxContainer {
 margin: 1.2rem 0 1.2rem 0;
 display: flex;
+align-items: flex-start;
+align-content: flex-start;
 flex-wrap: wrap;
-justify-content: space-between;
+gap: 3px;
+font-size: 1.1rem;
+}
+
+.checkboxContainer label {
+    font-size: 1.1rem;
+    font-weight: bolder;
+    font-family: 'Barlow', sans-serif;
+    margin-left: 10px;
 }
 
 .checkboxColumn {
-    flex: 0 0 30%;
+    flex: 0 1 33%;
     margin-bottom: 10px;
+    text-align: left;
 }
 
 .orderNote {
@@ -101,13 +122,13 @@ justify-content: space-between;
     margin-left: 15px;
 }
 .confirmationBox {
-    width: 20rem;
+    width: 24rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border: 1.5px solid gray;
     border-radius: 7px;
-    padding-top: 1rem;
+    padding: 3.5rem;
 }
 
 .confirmationBox p {
@@ -120,8 +141,7 @@ justify-content: space-between;
 .confirmationBox h1 {
     font-weight: bold;
     font-family: 'Barlow', sans-serif;
-    margin-top: 1.3rem;
-    margin-bottom: 1.3rem;
+    margin-bottom: 1rem;    
 }
 
 .orderSumBox {
@@ -133,4 +153,12 @@ justify-content: space-between;
     display: flex;
     justify-content: space-between;
     color: #CE2829;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    
 }

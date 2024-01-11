@@ -7,7 +7,7 @@ import classes from './OrderForm.module.css';
 const StyledSubmitButton = styled.button`
 display: flex;
 height: 3rem;
-width:20rem;
+width:24rem;
 padding: 0 50px 0 50px;
 justify-content: center;
 align-items: center;
@@ -16,7 +16,6 @@ background: #FDC913;
 font-weight: 800;
 font-size: 1.2rem;
 border: none;
-margin-top: 2rem;
 font-family: 'Barlow', sans-serif;
 transition: transform 0.3s ease;
 &:hover {
@@ -105,8 +104,8 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
   return (
   <form className={classes.form} onSubmit={handleSubmit} >
     <div className={classes.topLabelContainer}> {/*inline stylelari nasil css dosyasina aktarirsin dusun!!!*/}
-    <label>Boyut Seç:</label>
-    <label>Hamur Seç:</label>
+    <label>Boyut Seç*</label>
+    <label>Hamur Seç*</label>
     </div>
     <div className={classes.topContainer}>
     
@@ -138,7 +137,7 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
   
 
   {/**/}
-  <label>Ek Malzemeler:</label>
+  <label>Ek Malzemeler</label>
   <p>En Fazla 10 malzeme seçebilirsiniz. 5₺</p>
   <div className={classes.checkboxContainer}>
         {toppingsArray.map((topping, index) => (
@@ -157,14 +156,14 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
 
 {/**/}
 <div className={classes.orderNote}>
-<label>Sipariş Notu:</label>
+<label>Sipariş Notu</label>
 <input type='text' name='note' placeholder="Siparişinize eklemek istediğiniz bir not var mı?" onChange={handleChange} /> {/*handlechange fonksiyonu yaz*/}
 </div>
 
 
 {/**/}
 <div className={classes.orderNote}>
-<label>İsminiz:</label>
+<label>İsminiz</label>
 <input type="text" name='name' placeholder="İsminizi giriniz" onChange={handleChange} /> {/*handlechange fonksiyonu yaz*/}
 </div>
 
@@ -188,8 +187,11 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
     <div className={classes.orderSumBox}><p>Seçimler:</p> <p>{secimler} ₺</p></div>{/*should display (selectedToppings.length*5) */}
     <div className={classes.orderSumBox2}><p>Toplam: </p> <p>{toplam} ₺</p></div> {/*should display totalPrice */}
 </div>
-<StyledSubmitButton type="submit">SİPARİŞ VER</StyledSubmitButton>
+
 </div>
+</div>
+<div className={classes.buttonContainer}>
+<StyledSubmitButton type="submit">SİPARİŞ VER</StyledSubmitButton>
 </div>
 
 {/**/}
