@@ -6,7 +6,7 @@ import OrderForm from '../components/OrderForm';
 const StyledProductName = styled.div`
 display: flex;
 justify-content:flex-start;
-width: 40rem;
+// width: 40rem;
 text-align: left;
 color: black;
 font-size: 1.5rem;
@@ -19,10 +19,10 @@ padding: 0;
 const StyledProductPrice = styled.div`
 display: flex;
 justify-content:flex-start;
-width: 40rem;
+// width: 40rem;
 text-align: left;
 color: black;
-font-size: 2rem;
+font-size: 1.75rem;
 font-weight: bold;
 margin-top: 2rem;
 padding: 0;
@@ -31,13 +31,12 @@ padding: 0;
 const StyledProductDesc = styled.div`
 display: flex;
 justify-content:flex-start;
-width: 40rem;
+// width: 40rem;
 text-align: left;
-font-size: 1.1rem;
+font-size: 1rem;
 font-weight: 50;
 font-family: 'Barlow', sans-serif;
 line-height: 1.5;
-margin: 1rem;
 padding: 0;
 margin-bottom: 2rem;
 `;
@@ -47,6 +46,7 @@ export default function OrderPage () {
     <>
     <Header/>
     <div className={classes.mainContainer}>
+      <div className={classes.contentContainer}>
       <StyledProductName>Position Absolute Acı Pizza</StyledProductName>
       <StyledProductPrice>85.50 ₺</StyledProductPrice>
       <StyledProductDesc>
@@ -56,6 +56,8 @@ export default function OrderPage () {
     </StyledProductDesc>
     <OrderForm/>
     </div>
+    </div>
+    
     </>
 )
 }

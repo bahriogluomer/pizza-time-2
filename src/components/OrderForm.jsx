@@ -23,10 +23,9 @@ transition: transform 0.3s ease;
 }
 `
 //TODO
-//ekmalzemeler arrayi olusturulup maplenecek
+//subtotal datasini nasil handlelariz?
+//validasyon fonksiyonlari yazilacak
 //handleChange kalan form elementleri icin yazilacak, secim ve girdilerin formData'yi guncellemeleri saglanacak 
-//inline style'lar yok edilecek, order formun cssi duzeltilecek (spesifikasyonda oldugu gibi)
-//Form ve yukarıdaki yazılarda font-family yanlis yalin barlow olacak
 //onSubmit fonksiyonu useEffect kullanarak axios araciligiyla formData post edilecek, post data console.log ile gosterilecek
 //cypress testleri yazilacak
 
@@ -104,8 +103,8 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
   return (
   <form className={classes.form} onSubmit={handleSubmit} >
     <div className={classes.topLabelContainer}> {/*inline stylelari nasil css dosyasina aktarirsin dusun!!!*/}
-    <label>Boyut Seç*</label>
-    <label>Hamur Seç*</label>
+    <label>Boyut Seç<span className={classes.redAsterisk}>*</span></label>
+    <label>Hamur Seç<span className={classes.redAsterisk}>*</span></label>
     </div>
     <div className={classes.topContainer}>
     
@@ -142,7 +141,8 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
   <div className={classes.checkboxContainer}>
         {toppingsArray.map((topping, index) => (
           <div key={index} className={classes.checkboxColumn}>
-            <input
+            <div className={classes.checkboxElement}>
+              <input
               type="checkbox"
               id={`topping${index}`}
               value={topping.toLowerCase()} 
@@ -150,6 +150,8 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
               checked={formData.selectedToppings.includes(topping.toLowerCase())}
             />
             <label htmlFor={`topping${index}`}>{topping}</label>
+            </div>
+            
           </div>
         ))}
 </div>
@@ -160,16 +162,17 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
 <input type='text' name='note' placeholder="Siparişinize eklemek istediğiniz bir not var mı?" onChange={handleChange} /> {/*handlechange fonksiyonu yaz*/}
 </div>
 
-
 {/**/}
+
 <div className={classes.orderNote}>
-<label>İsminiz</label>
+<label>İsminiz<span className={classes.redAsterisk}>*</span></label>
 <input type="text" name='name' placeholder="İsminizi giriniz" onChange={handleChange} /> {/*handlechange fonksiyonu yaz*/}
 </div>
 
 <hr/>
 
 {/**/}
+
 <div className={classes.bottomContainer}>
   <span>
   
@@ -181,6 +184,7 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
 </span>
 
 {/**/}
+
 <div className={classes.confirmationBox}>
 <div>
     <h1>Sipariş toplamı</h1>
