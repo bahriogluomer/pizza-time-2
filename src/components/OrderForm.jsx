@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import classes from './OrderForm.module.css';
+import { validateName } from '../utilities/validation';
 
 const StyledSubmitButton = styled.button`
 display: flex;
@@ -21,24 +22,33 @@ transition: transform 0.3s ease;
 &:hover {
   transform: scale(1.02);
 }
-`
+@media screen and (max-width: 768px) {
+  width:24rem;
+  font-size: 0.8rem; /* Decrease font size on smaller screens */
+  max-width: 100%; /* Allow content to take the full width on smaller screens */
+}
+`;
+
+const ErrorText = styled.p`
+  color: red;
+`;
+
+
+
 //TODO
-//subtotal datasini nasil handlelariz?
-//validasyon fonksiyonlari yazilacak
-//handleChange kalan form elementleri icin yazilacak, secim ve girdilerin formData'yi guncellemeleri saglanacak 
 //onSubmit fonksiyonu useEffect kullanarak axios araciligiyla formData post edilecek, post data console.log ile gosterilecek
 //cypress testleri yazilacak
 
-const toppingsArray = ['Pepperoni', 'Tavuk Izgara', 'Mısır', 'Sarımsak', 'Ananas', 'Sosis', 'Soğan', 'Sucuk', 'Biber', 'Kabak', 'Kanada Jambonu', 'Domates', 'Jalepeno', 'Salam'];
+const toppingsArray = ['Pepperoni', 'Tavuk Izgara', 'Mısır', 'Sarımsak', 'Ananas', 'Sosis', 'Soğan', 'Sucuk', 'Biber', 'Kabak', 'Jambon', 'Domates', 'Jalepeno', 'Salam'];
 
 const initialForm = {
   name: "",
   size: "",
-  crust:"superthin",
+  crust:"",
   selectedToppings: [],
   note: "",
   orderQuantity: 1,
-  subTotal: 85.5,
+  subtotal: 0,
 };
 
 const totalPrice = () => (85.5 + initialForm.orderQuantity * initialForm.selectedToppings.length * 5)
@@ -46,28 +56,85 @@ const totalPrice = () => (85.5 + initialForm.orderQuantity * initialForm.selecte
 
 const initialErrors = {
   name: false,    // if name.length<=4 true
-  pizzaSize: false,   //if not selected true
+  size: false,   //if not selected true
   crust: false, //if not selected true
   selectedToppings: false, // if selectedToppings.length>10 true
 }
+
+const errorMessages = {
+  name: "İsim alanı boş bırakılamaz.",
+  size: "Lütfen boyut seçiniz",
+  crust: "Lütfen hamur kalınlığı seçiniz.",
+  selectedToppings: "En fazla 10 adet ek malzeme ekleyebilirsiniz."
+};
 
 
 
 export default function OrderForm () {
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState(initialErrors);
-  const [isValid, setIsValid] = useState(false);
+  const toppingsPrice = formData.selectedToppings.length * 5;
+  const totalAmount = (totalPrice() + toppingsPrice) * formData.orderQuantity;
   const history = useHistory();
 
-const secimler = formData.selectedToppings.length*5;
-const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
+  const handleChange = (event) => {
+    let { value, name,type, checked } = event.target;
+    value = type === "checkbox" ? checked : value;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));   
+  };
 
+  useEffect(()=>{
+
+    if (formData.selectedToppings.length<=10) {
+      setErrors({ ...errors, selectedToppings: false });
+    } else if (formData.selectedToppings.length>10) {
+      setErrors({ ...errors, selectedToppings: true });
+    }
+      
+  },[formData.selectedToppings,errors])
+
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
+  
+    // Check form validity
+    const { name, size, crust, selectedToppings } = formData;
+  
+    const nameError = !validateName(name);
+    const crustError = !crust.trim();
+    const sizeError = size === '';
+    const toppingsError = selectedToppings.length > 10;
+  
+    setErrors({
+      ...errors,
+      name: nameError,
+      crust: crustError,
+      size: sizeError,
+      selectedToppings: toppingsError,
+    });
+  
+    // If there are errors, stop the submission
+    if (nameError || crustError || sizeError || toppingsError) {
+      return;
+    }
+  
+    // Proceed with the submission
     history.push('/success');
     console.log(formData);
   };
+
+
+// updating the subtotal via useEffect
+  useEffect(() => {
+    setFormData((prevData) => ({
+      ...prevData,
+      subtotal: totalAmount,
+    }));
+  }, [formData.selectedToppings, formData.orderQuantity, totalAmount]);
 
   const handleIncrement = () => {
     setFormData({ ...formData, orderQuantity: formData.orderQuantity + 1 })
@@ -89,20 +156,11 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
     }));
   };
 
-  const handleChange = (event) => {
-    let { value, name } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  }
-
   
-  //const totalPrice = (85.50 + selectedToppings.length * 5) * quantity;
 
   return (
   <form className={classes.form} onSubmit={handleSubmit} >
-    <div className={classes.topLabelContainer}> {/*inline stylelari nasil css dosyasina aktarirsin dusun!!!*/}
+    <div className={classes.topLabelContainer}> 
     <label>Boyut Seç<span className={classes.redAsterisk}>*</span></label>
     <label>Hamur Seç<span className={classes.redAsterisk}>*</span></label>
     </div>
@@ -122,10 +180,10 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
     <label>Büyük</label>
     </span>
   </div>
-
-  
-    <div>
+ 
+<div>
     <select name="crust" onChange={handleChange}>
+      <option value="" selected>Seçiniz</option>
       <option  value="superthin" >Süpper İnce</option>
       <option  value="thin">İnce</option>
       <option  value="medium">Orta</option>
@@ -133,9 +191,15 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
     </select>
     </div>
   </div>
-  
 
-  {/**/}
+  {errors.crust && (
+    <ErrorText data-test-id="error">{errorMessages.crust}</ErrorText>
+  )}
+
+{errors.size && (
+  <ErrorText data-test-id="error">{errorMessages.size}</ErrorText>
+  )}
+
   <label>Ek Malzemeler</label>
   <p>En Fazla 10 malzeme seçebilirsiniz. 5₺</p>
   <div className={classes.checkboxContainer}>
@@ -156,6 +220,10 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
         ))}
 </div>
 
+{errors.selectedToppings && (
+    <ErrorText data-test-id="error">{errorMessages.selectedToppings}</ErrorText>
+  )}
+
 {/**/}
 <div className={classes.orderNote}>
 <label>Sipariş Notu</label>
@@ -166,41 +234,36 @@ const toplam = ((totalPrice()+secimler)*formData.orderQuantity);
 
 <div className={classes.orderNote}>
 <label>İsminiz<span className={classes.redAsterisk}>*</span></label>
-<input type="text" name='name' placeholder="İsminizi giriniz" onChange={handleChange} /> {/*handlechange fonksiyonu yaz*/}
+<input type="text" name='name' placeholder="İsminizi giriniz" onChange={handleChange} />
 </div>
+
+{errors.name && (
+  <ErrorText data-test-id="error">{errorMessages.name}</ErrorText>
+  )}
+
 
 <hr/>
 
 {/**/}
 
 <div className={classes.bottomContainer}>
-  <span>
-  
   <div className={classes.quantitySelector}>
     <button className={classes.buttonL} type="button" onClick={handleDecrement}>-</button>
     <span >{formData.orderQuantity}</span> {/*should be increasing or decreasing orderQuantity*/}
     <button className={classes.buttonR} type="button" onClick={handleIncrement}>+</button>
   </div>
-</span>
-
 {/**/}
-
 <div className={classes.confirmationBox}>
 <div>
     <h1>Sipariş toplamı</h1>
-    <div className={classes.orderSumBox}><p>Seçimler:</p> <p>{secimler} ₺</p></div>{/*should display (selectedToppings.length*5) */}
-    <div className={classes.orderSumBox2}><p>Toplam: </p> <p>{toplam} ₺</p></div> {/*should display totalPrice */}
+    <div className={classes.orderSumBox}><p>Seçimler:</p> <p>{toppingsPrice} ₺</p></div>{/*should display (selectedToppings.length*5) */}
+    <div className={classes.orderSumBox2}><p>Toplam: </p> <p>{totalAmount} ₺</p></div> {/*should display totalPrice */}
 </div>
-
 </div>
 </div>
 <div className={classes.buttonContainer}>
-<StyledSubmitButton type="submit">SİPARİŞ VER</StyledSubmitButton>
+<StyledSubmitButton data-test-id="submit-button" type="submit" >SİPARİŞ VER</StyledSubmitButton>
 </div>
-
-{/**/}
-
-  
 </form>
 );
 }

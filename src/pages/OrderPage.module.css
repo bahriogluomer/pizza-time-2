@@ -2,10 +2,7 @@
     display: flex;
     justify-content: center;
     align-content: center;
-    @media screen and (max-width: 768px) {
-        font-size: 1rem; /* Decrease font size on smaller screens */
-        max-width: 100%; /* Allow content to take the full width on smaller screens */
-      }
+   
 }
 
 .contentContainer {
@@ -17,10 +14,11 @@
     font-size:1.2rem;
     color: #5F5F5F;
     max-width: 40rem;
-   
-   
-                 
-}
+    @media screen and (max-width: 768px) {
+        font-size: 0.8rem; /* Decrease font size on smaller screens */
+        max-width: 100%; /* Allow content to take the full width on smaller screens */
+      }
+   }
 
 .contentContainer h1 {
     background-color: transparent;

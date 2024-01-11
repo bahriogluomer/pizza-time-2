@@ -4,7 +4,12 @@
     align-items: center;
     background: transparent;
     justify-content: center;  
-    margin-top: 2rem;                
+    margin-top: 2rem;  
+    @media screen and (max-width: 768px) {
+        font-size: 0.4rem; /* Decrease font size on smaller screens */
+        max-width: 100%; /* Allow content to take the full width on smaller screens */
+        overflow-y: auto; /* Add vertical scrolling */
+      }              
 }
 
 .mainContainer h1 {

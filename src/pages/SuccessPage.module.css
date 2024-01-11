@@ -3,6 +3,10 @@
     background-color: #ce2829;
     box-sizing: border-box;
     width: 100%;
+    @media screen and (max-width: 768px) {
+      font-size: 0.5rem; /* Decrease font size on smaller screens */
+      max-width: 100%; /* Allow content to take the full width on smaller screens */
+    }
   }
   
   
