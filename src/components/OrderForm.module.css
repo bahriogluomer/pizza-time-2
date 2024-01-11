@@ -1,0 +1,136 @@
+.form {
+    width: 40rem; 
+    font-family: 'Barlow', sans-serif;
+    font-size:1.2rem;
+    color: black;
+    display: block;
+    
+}
+
+.form p{
+font-size:1.05rem;
+font-weight:60;
+font-family: 'Barlow', sans-serif;
+
+}
+
+.form hr {
+    margin-top:2rem;
+    margin-bottom: 2rem;
+    width: 40rem;
+}
+
+.topContainer {
+    display:flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.topLabelContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.radioColumn {
+    display: flex;
+    flex-direction: column;
+    flex-basis: flex-start;
+}
+
+.dropDown {
+    width: 3rem;
+}
+
+.checkboxContainer {
+margin: 1.2rem 0 1.2rem 0;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+}
+
+.checkboxColumn {
+    flex: 0 0 30%;
+    margin-bottom: 10px;
+}
+
+.orderNote {
+    margin-bottom: 15px;
+}
+
+.orderNote label {
+    display: block;
+    margin-bottom: 5px;
+    
+}
+
+.orderNote input {
+    width: 100%;
+    padding: 8px;
+    border: gray solid 1px;
+    border-radius: 3px;
+}
+
+.bottomContainer {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Barlow', sans-serif;
+    margin-top: 3rem;
+}
+
+.quantitySelector {
+    display: 'block'; 
+    align-items : 'center';
+}
+
+.buttonL {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px 0px 0px 6px;
+    background: #FDC913;
+    border: none;
+    margin-right: 15px;
+
+}
+
+.buttonR {
+    width: 40px;
+    height: 40px;
+    border-radius: 0px 6px 6px 0px;
+    background: #FDC913;
+    border: none;
+    margin-left: 15px;
+}
+.confirmationBox {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1.5px solid gray;
+    border-radius: 7px;
+    padding-top: 1rem;
+}
+
+.confirmationBox p {
+    background-color: transparent;
+    font-size: 1.3rem;
+    font-family: 'Barlow', sans-serif;
+}
+
+
+.confirmationBox h1 {
+    font-weight: bold;
+    font-family: 'Barlow', sans-serif;
+    margin-top: 1.3rem;
+    margin-bottom: 1.3rem;
+}
+
+.orderSumBox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderSumBox2 {
+    display: flex;
+    justify-content: space-between;
+    color: #CE2829;
+}

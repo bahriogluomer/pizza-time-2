@@ -18,14 +18,14 @@
   }
   
   .congratulations {
-    background-color: #ce2829;
+    background-color: transparent;
     display: flex; 
     flex-direction: column; 
     align-items: center;
   }
   
   h1, p {
-    background-color: #ce2829;
+    background-color: transparent;
     font-family: 'Barlow Condensed', sans-serif;
     
     

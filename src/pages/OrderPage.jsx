@@ -33,13 +33,13 @@ display: flex;
 justify-content:flex-start;
 width: 40rem;
 text-align: left;
-color: black;
-font-size: 1.2rem;
-font-weight: light;
-font-family: 'Barlow Condensed', sans-serif;
-line-height: 1.8;
+font-size: 1.1rem;
+font-weight: 50;
+font-family: 'Barlow', sans-serif;
+line-height: 1.5;
 margin: 1rem;
 padding: 0;
+margin-bottom: 2rem;
 `;
 
 export default function OrderPage () {
