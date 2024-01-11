@@ -35,7 +35,6 @@ const ErrorText = styled.p`
 `;
 
 //TODO
-//onSubmit fonksiyonu useEffect kullanarak axios araciligiyla formData post edilecek, post data console.log ile gosterilecek
 //cypress testleri yazilacak
 
 const toppingsArray = ['Pepperoni', 'Tavuk Izgara', 'Mısır', 'Sarımsak', 'Ananas', 'Sosis', 'Soğan', 'Sucuk', 'Biber', 'Kabak', 'Jambon', 'Domates', 'Jalepeno', 'Salam'];
@@ -163,7 +162,10 @@ export default function OrderForm () {
         console.error('Error:', error);
       });
   };
-   
+
+//
+
+
   return (
   <form className={classes.form} onSubmit={handleSubmit} >
     <div className={classes.topLabelContainer}> 
