@@ -13,15 +13,13 @@
         font-size: 0.8rem; 
         max-width: 100%; 
       }
-    
 }
 
 .form p{
 font-size:1.05rem;
 font-weight:60;
 font-family: 'Barlow', sans-serif;
-
-}
+ }
 
 .form hr {
     margin-top:2rem;
@@ -177,10 +175,13 @@ font-size: 1.1rem;
         max-width: 100%; /* Allow content to take the full width on smaller screens */
         justify-content: center;
       }
-    
-    
 }
 
+
+.errorBox {
+    display: flex;
+    justify-content: space-between;
+}
 /*-------------------------------------------------------------------------------*/
 
 .checkboxElement {

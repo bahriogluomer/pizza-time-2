@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import classes from './OrderForm.module.css';
 import { validateName } from '../utilities/validation';
+import axios from 'axios';
 
 const StyledSubmitButton = styled.button`
 display: flex;
@@ -33,8 +34,6 @@ const ErrorText = styled.p`
   color: red;
 `;
 
-
-
 //TODO
 //onSubmit fonksiyonu useEffect kullanarak axios araciligiyla formData post edilecek, post data console.log ile gosterilecek
 //cypress testleri yazilacak
@@ -62,7 +61,7 @@ const initialErrors = {
 }
 
 const errorMessages = {
-  name: "İsim alanı boş bırakılamaz.",
+  name: "İsim en az dört karakter olmalıdır.",
   size: "Lütfen boyut seçiniz",
   crust: "Lütfen hamur kalınlığı seçiniz.",
   selectedToppings: "En fazla 10 adet ek malzeme ekleyebilirsiniz."
@@ -92,41 +91,11 @@ export default function OrderForm () {
       setErrors({ ...errors, selectedToppings: false });
     } else if (formData.selectedToppings.length>10) {
       setErrors({ ...errors, selectedToppings: true });
-    }
-      
-  },[formData.selectedToppings,errors])
+    }  
+  },[formData.selectedToppings])
+
 
   
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  
-    // Check form validity
-    const { name, size, crust, selectedToppings } = formData;
-  
-    const nameError = !validateName(name);
-    const crustError = !crust.trim();
-    const sizeError = size === '';
-    const toppingsError = selectedToppings.length > 10;
-  
-    setErrors({
-      ...errors,
-      name: nameError,
-      crust: crustError,
-      size: sizeError,
-      selectedToppings: toppingsError,
-    });
-  
-    // If there are errors, stop the submission
-    if (nameError || crustError || sizeError || toppingsError) {
-      return;
-    }
-  
-    // Proceed with the submission
-    history.push('/success');
-    console.log(formData);
-  };
-
 
 // updating the subtotal via useEffect
   useEffect(() => {
@@ -135,6 +104,8 @@ export default function OrderForm () {
       subtotal: totalAmount,
     }));
   }, [formData.selectedToppings, formData.orderQuantity, totalAmount]);
+
+  // 
 
   const handleIncrement = () => {
     setFormData({ ...formData, orderQuantity: formData.orderQuantity + 1 })
@@ -158,6 +129,41 @@ export default function OrderForm () {
 
   
 
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  
+    // Check form validity
+    const { name, size, crust, selectedToppings } = formData;
+  
+    const nameError = !validateName(name);
+    const crustError = !crust.trim();
+    const sizeError = size === '';
+    const toppingsError = selectedToppings.length > 10;
+  
+    setErrors({
+      ...errors,
+      name: nameError,
+      crust: crustError,
+      size: sizeError,
+      selectedToppings: toppingsError,
+    });
+  
+    if (nameError || crustError || sizeError || toppingsError) {
+      return;
+    }
+  
+    axios
+      .post('https://jsonplaceholder.typicode.com/posts', formData)
+      .then((response) => {
+        console.log('Response:', response.data);
+        history.push('/success');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+   
   return (
   <form className={classes.form} onSubmit={handleSubmit} >
     <div className={classes.topLabelContainer}> 
@@ -183,7 +189,7 @@ export default function OrderForm () {
  
 <div>
     <select name="crust" onChange={handleChange}>
-      <option value="" selected>Seçiniz</option>
+      <option value="">Seçiniz</option>
       <option  value="superthin" >Süpper İnce</option>
       <option  value="thin">İnce</option>
       <option  value="medium">Orta</option>
@@ -192,13 +198,16 @@ export default function OrderForm () {
     </div>
   </div>
 
+<div className={classes.errorBox}>
+  {errors.size && (
+  <ErrorText data-test-id="error">{errorMessages.size}</ErrorText>
+  )}
+
   {errors.crust && (
     <ErrorText data-test-id="error">{errorMessages.crust}</ErrorText>
   )}
-
-{errors.size && (
-  <ErrorText data-test-id="error">{errorMessages.size}</ErrorText>
-  )}
+</div>
+  
 
   <label>Ek Malzemeler</label>
   <p>En Fazla 10 malzeme seçebilirsiniz. 5₺</p>
