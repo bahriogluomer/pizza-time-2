@@ -61,7 +61,7 @@ export default function HomePage () {
     <div className={classes.mainContainer}>
       <h1>KOD ACIKTIRIR</h1>
       <h1>PİZZA, DOYURUR</h1>
-      <StyledButton onClick={handleButtonClick}>ACIKTIM</StyledButton>
+      <StyledButton data-test-id='hungry-button' onClick={handleButtonClick}>ACIKTIM</StyledButton>
     </div>
   </StyledHero>
   </>

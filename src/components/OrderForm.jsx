@@ -84,6 +84,7 @@ export default function OrderForm () {
     }));   
   };
 
+
   useEffect(()=>{
 
     if (formData.selectedToppings.length<=10) {
@@ -202,11 +203,11 @@ export default function OrderForm () {
 
 <div className={classes.errorBox}>
   {errors.size && (
-  <ErrorText data-test-id="error">{errorMessages.size}</ErrorText>
+  <ErrorText data-test-id="size-error">{errorMessages.size}</ErrorText>
   )}
 
   {errors.crust && (
-    <ErrorText data-test-id="error">{errorMessages.crust}</ErrorText>
+    <ErrorText data-test-id="crust-error">{errorMessages.crust}</ErrorText>
   )}
 </div>
   
@@ -232,7 +233,7 @@ export default function OrderForm () {
 </div>
 
 {errors.selectedToppings && (
-    <ErrorText data-test-id="error">{errorMessages.selectedToppings}</ErrorText>
+    <ErrorText data-test-id="toppings-error">{errorMessages.selectedToppings}</ErrorText>
   )}
 
 {/**/}
@@ -249,7 +250,7 @@ export default function OrderForm () {
 </div>
 
 {errors.name && (
-  <ErrorText data-test-id="error">{errorMessages.name}</ErrorText>
+  <ErrorText data-test-id="name-error">{errorMessages.name}</ErrorText>
   )}
 
 
